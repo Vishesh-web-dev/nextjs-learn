@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.idea
+.eslintcache
+yarn.lock
+package-lock.json
+
+# production
+/build
+
+# testing
+/coverage
+junit.xml
