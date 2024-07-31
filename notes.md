@@ -1,92 +1,105 @@
-# **NextJS is a famework build on top of react library**
-### It includes features like routing, optimized rendering,data fetching, bundling, compiling does not need to install additional pakages 
+# Next.js: A Framework Built on React
 
-**Used to build production ready applications**
+Next.js is a powerful framework built on top of the React library, designed to enhance and streamline the development of production-ready applications. It provides a comprehensive set of features out of the box, eliminating the need for additional packages for routing, optimized rendering, data fetching, bundling, and compiling.
 
-## **why cause it provides** 
-1. Routing => File based routing and app router 
-2. API routes => 
-3. Rendering => ssr and csr
-4. Data Fetching 
-5. Styling => tailwind inbuild
-6. optimizations => for images, fonts and scrs
-7. good for dev and prod 
+## Key Features of Next.js
 
-public --> to serve all the static assests such as svg or images
-### nextjs automatically creates layout.tsx file -->when compiling
+1. **Routing**: Next.js offers a file-based routing system and an app router for defining URL paths using files and folders.
+2. **API Routes**: Simplifies the creation of API endpoints.
+3. **Rendering**: Supports both Server-Side Rendering (SSR) and Client-Side Rendering (CSR).
+4. **Data Fetching**: Provides multiple methods for fetching data in both SSR and CSR contexts.
+5. **Styling**: Built-in support for Tailwind CSS.
+6. **Optimizations**: Includes optimizations for images, fonts, and scripts.
+7. **Development and Production**: Provides a smooth development experience and optimizations for production.
 
-## SSR
-In next js all components are server components by default also,they have the ability to read files and fetch data from the db. however they don't have ability to use hooks or handle user interactions
+## Project Structure
 
-## CSR
-To create a client component, we add 'use client' at the top.
-they are opposite of ssr components.
+- **public**: Serves all static assets such as SVGs or images.
+- **next.config.js**: Configuration file for customizing the Next.js setup.
 
-## Routing
-### File based routing
-It has a file based routing mech.It's url paths are defined using files and folders.
+## Rendering in Next.js
 
-- not every file belong to route we have to follow some conventions defined by nextjs.
-- every file that corresponds to a route should be named page.js/tsx.
-- every folder corresponds to a path segment in the url.
-- all routes should be inside folder named with app
-- for dynamic routing create file with name inside [] brackets.
-- to get the params value we will get in the props under params object with key named as folder name.
-- Catch all segments route use [...fileName]
-- and to access that route use params.fileName from props to get array of string
-- it also provide optional catch all segments as well by using [[...fileName]] -> render docs to the same file as well using this.
-- **custom not found page** --> create a file named as not-found.tsx 
-- to render based on some condition use notFound function by next/navigation
-- also all the page.tsx should be default exported. 
-- **Private folder** --> it indicates it is privately implemented and it is excluded for the routing system it is declared by _folderName or %5F
+### Server-Side Rendering (SSR)
 
-## **Route Groups**
-we can mark a folder as route group to exclude it from the path but its childs are still condered
-ex-> /auth/register if we make auth folder a route group then by /register we can access the page
-This can be done by naming folder in parenthesis ex--> (auth)
+- All components are server components by default.
+- Server components can read files and fetch data from databases but cannot use hooks or handle user interactions.
 
-## Layout 
-which is shared between multiple routes --> like header (outlet)
+### Client-Side Rendering (CSR)
 
-## Nested Layout 
-create layout in nested files for it simple
+- To create a client component, add `'use client'` at the top of the file.
+- Client components can use hooks and handle user interactions.
 
-## route group layout
-it is also used to selectively apply layout to certain segments while leaving others
-create route group and give it layout while having others outside the route group.
+## Routing in Next.js
 
-## Config the metadata 
-It can be configured by exporting static meta data object
-or exporting a dynamic generateMetadata Function
+### File-Based Routing
 
-### metadata rules
-both page.tsx and layout.tsx can export metadata. If defined in a layout, it applies to all the pages in that layout, but if defined in a page, it applies only to that page.
+Next.js uses a file-based routing mechanism where URL paths are defined using files and folders.
 
-It is read in order from root level to final page level
-when there's metadata in multiple places for the same route, they get combined, but page metadata will
-replace layout metadata if they have same properties
+- Not every file belongs to a route; follow conventions defined by Next.js.
+- Every file corresponding to a route should be named `page.js` or `page.tsx`.
+- Each folder corresponds to a path segment in the URL.
+- All routes should be inside a folder named `app`.
+- For dynamic routing, create a file with a name inside square brackets (e.g., `[id].js`).
+- To access dynamic route parameters, use `params` from the props object.
+- Use `[...]` for catch-all segments and `[[...]]` for optional catch-all segments.
+- Create a custom not found page by creating a file named `not-found.tsx`.
+- To conditionally render a not found page, use the `notFound` function from `next/navigation`.
+- All `page.tsx` files should be default exported.
+- **Private Folders**: Indicated by an underscore (`_folderName`) and excluded from the routing system.
 
-also deeper page/layout overrids the root level's
+### Route Groups
 
-Dynamic MetaData for dynamic routing
-generateMetadata function recives props same as of page and returns metadata, also this function can be async and have a return type Promise<Metadata>
+- Mark a folder as a route group to exclude it from the path but still include its child routes.
+- Create a route group by naming the folder in parentheses (e.g., `(auth)`).
 
-### metadata title
-It can be a string or object.
-title: {
-    default: 'About Page Child', //fallback for child  
-    template: '%s | About Page', //child replace %s with their title
-    // absolute: "About Page Main" //ignores template in from parent it is absolute don't need much
+## Layouts
+
+### Shared Layouts
+
+- Layouts shared between multiple routes, like headers, can be created using the `layout.tsx` file.
+
+### Nested Layouts
+
+- Create nested layouts by placing `layout.tsx` files in nested folders.
+
+### Route Group Layouts
+
+- Use route group layouts to selectively apply layouts to certain segments while leaving others.
+
+## Metadata Configuration
+
+- Metadata can be configured by exporting a static metadata object or a dynamic `generateMetadata` function.
+- Both `page.tsx` and `layout.tsx` can export metadata.
+- Metadata is read in order from root level to the final page level.
+- When there's metadata in multiple places for the same route, they get combined, but page metadata will replace layout metadata if they have the same properties.
+- Deeper page/layout metadata overrides root-level metadata.
+- The `generateMetadata` function receives props and returns metadata. It can be async and return a `Promise<Metadata>`.
+
+### Metadata Title
+
+- Titles can be a string or an object.
+  ```js
+  title: {
+      default: 'About Page Child', // Fallback for child  
+      template: '%s | About Page', // Child replaces %s with their title
   },
 
 ## UI Navigation
-to enable client side navigation use Link componet form 'next/link'
-<Link href = '/blog' replace>Go To Blog</Link>
-it also has replace attribute which removes the page from which it came from, 
-from navigation history. basically it replaces the current url from navigation history to new one
 
-## Hooks can be used only at client side
-usePathname hook --> for active links check see in example.
-provides pathname constant which is the current path ex--> /blog
-Don't use "use client" in layout , all pages inside this layout will be client rendered , its better to create client component contain all your links ,then use pathname inside it ,and let the layout derver rendered
+Use the `Link` component from `next/link` for client-side navigation.
 
+```jsx
+<Link href='/blog' replace>Go To Blog</Link>
+```
+
+## Hooks
+- Hooks can only be used in client components.
+
+### usePathname hook provides the current path, useful for active link checks.
+
+  ```js
+      const pathname = usePathname(); // e.g., '/blog'
+  ```
+
+  - Avoid using 'use client' in layout files to prevent client rendering of all pages within the layout.  
+  - Instead, create a client component for links and use pathname inside it, letting the layout be server-rendered.
